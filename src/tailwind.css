@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,700;1,400;1,700&family=Contrail+One&family=Geo:ital@0;1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply bg-black text-white font-barlow scroll-smooth;
+  }
+
+  h1 {
+    background: linear-gradient(137.73deg, #A12DE0 2.88%, #6FC7EC 100.36%);
+    background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+  }
+
+  pre {
+    @apply py-3 px-5 rounded-sm mb-5
+  }
+
+  ol {
+    counter-reset: ordered-list;
+    @apply list-none m-0 p-0
+  }
+
+  ol li {
+    @apply font-geo text-[28px] italic leading-[55px] m-0 mb-5 p-0 relative;
+  }
+
+  ol li:before {
+    content: counter(ordered-list, decimal-leading-zero);
+    counter-increment: ordered-list;
+    @apply text-balticSea text-[145px] -left-[30px] absolute -top-2 z-10;
+  }
+
+  ol li a {
+    @apply text-white p-0 relative transition-all duration-200 ease-in-out z-20 hover:text-turquoise hover:pl-[10px]
+  }
+
+  p {
+    @apply font-barlow leading-7 text-white pb-6;
+  }
+
+  aside {
+    @apply col-start-2 col-span-2 border-r-[1px] border-balticSea pb-[150px]
+  }
+
+  section {
+    @apply pb-[150px];
+  }
+
+  [role="columnheader"] {
+    @apply border-b-[1px] border-balticSea pb-2;
+  }
+
+  [role="gridcell"] {
+    @apply py-6 border-b-[1px] border-balticSea;
+  }
+
+  hr {
+    @apply border-b-[1px] border-balticSea my-6;
+  }
+
+  svg {
+    @apply fill-current;
+  }
+}
+
+@layer components {
+  .wrapper {
+    background: url('/images/bg.jpg') center top no-repeat,
+      url('/images/bg-grunge.jpg') center top repeat-y;
+    background-size: 100% auto, 100% auto;
+    @apply grid gap-x-5 grid-cols-12 pb-[115px];
+  }
+
+  .content h2 {
+    @apply font-geo text-[80px] leading-[100px] text-white italic p-0 m-0 mb-5
+  }
+
+  .content h3 {
+    @apply font-geo text-[28px] text-daffodil italic;
+  }
+
+  .content ul {
+    @apply list-disc pl-6 pb-8;
+  }
+
+  .docs-table {
+    @apply grid grid-cols-[150px_150px_1fr]
+  }
+
+  .prop {
+    @apply font-dank;
+  }
+}
+
+@layer utilities {
+  .center {
+    @apply flex items-center justify-center;
+  }
+}

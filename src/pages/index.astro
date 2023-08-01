@@ -1,15 +1,217 @@
 ---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import H3 from "../components/H3.astro";
+import { Faq } from "../components/Faq";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { slugify } from "../helpers/Slugify";
+
+const allFaqs = await getCollection("faqs");
+const allDocs = await getCollection("docs");
+const allGettingStarted = await getCollection("getting-started");
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header
+        class="flex items-center min-h-[970px] grid-start-7 col-span-5 gap-x-24"
+      >
+        <h1
+          class="font-contrail text-[315px] leading-[260px] text-white m-0 p-0 uppercase relative -top-[100px]"
+        >
+          React
+          <br />
+          Hook
+          <br />
+          Audio
+        </h1>
+        <nav class="text-white text-5xl">
+          <ol>
+            <li><a href="#get-started">get started</a></li>
+            <li><a href="#documentation">documentation</a></li>
+            <li><a href="#demos">demos</a></li>
+            <li><a href="#faqs">faqs</a></li>
+          </ol>
+        </nav>
+        <div class="fixed right-0 top-0">
+          <a
+            href="https://github.com/ahaywood/react-hook-audio"
+            target="_blank"
+            rel="norefferer"
+          >
+            <img
+              src="/images/github-corner.svg"
+              height="108"
+              width="108"
+              alt="GitHub Octocat"
+            />
+          </a>
+        </div>
+      </header>
+
+      <div class="col-start-5 col-span-5 py-[100px]">
+        <h4 class="font-contrail text-5xl text-turquoise m-0 mb-5 p-0">
+          This is a react hook library that gives you everything you need to
+          create a custom audio player.
+        </h4>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
+
+      <!-- get started -->
+      <aside>
+        <div class="sticky top-5 pb-10">
+          <h4 class="text-daffodil font-geo italic text-2xl">get started</h4>
+          <ul
+            class="font-dank text-white leading-7 list-none m-0 p-0 pl-2 text-base"
+          >
+            <li>installation</li>
+            <li>dependencies</li>
+            <li>quick start</li>
+          </ul>
+        </div>
+      </aside>
+
+      <section class="col-start-5 col-span-5 content">
+        <h2 id="get-started">get started</h2>
+        <H3 heading="installation" />
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna
+        </p>
+      </section>
+
+      <!-- documentation -->
+      <aside>
+        <div class="sticky top-5 font-dank text-white text-base pb-10">
+          &lt;/&gt; use Audio Player
+          <ul
+            class="font-dank text-white leading-7 list-none m-0 p-0 pl-2 text-base"
+          >
+            {
+              allDocs.map(async (doc) => {
+                return (
+                  <li>
+                    <a
+                      href={`#${slugify(doc.data.title)}`}
+                      class="hover:text-daffodil"
+                    >
+                      |__ {doc.data.title}
+                    </a>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </div>
+      </aside>
+
+      <section class="col-start-5 col-span-5 content">
+        <h2 id="documentation">documentation</h2>
+        <H3 heading="useAudioPlayer" />
+
+        {
+          allDocs.map(async (doc) => {
+            const { Content } = await doc.render();
+            return (
+              <div id={slugify(doc.data.title)}>
+                <Content />
+              </div>
+            );
+          })
+        }
+
+        <div class="docs-table">
+          <div role="columnheader">
+            <strong>Prop</strong>
+          </div>
+          <div role="columnheader">
+            <strong>Type</strong>
+          </div>
+          <div role="columnheader">
+            <strong>Description</strong>
+          </div>
+          <div role="gridcell" class="prop">something</div>
+          <div role="gridcell">string</div>
+          <div role="gridcell">something</div>
+        </div>
+      </section>
+
+      <!-- demos -->
+      <aside>
+        <div class="sticky top-5">
+          <h4 class="text-daffodil font-geo italic text-2xl">demos</h4>
+          <ul
+            class="font-dank text-white leading-7 list-none m-0 p-0 pl-2 text-base"
+          >
+            <li>
+              <a href="#" class="hover:text-daffodil">simple player</a>
+            </li>
+            <li><a href="#" class="hover:text-daffodil">waveform player</a></li>
+            <li><a href="#" class="hover:text-daffodil">playlist</a></li>
+            <li>
+              <a href="#" class="hover:text-daffodil">multiple players</a>
+            </li>
+            <li><a href="#" class="hover:text-daffodil">handing off</a></li>
+            <li><a href="#" class="hover:text-daffodil">jump links</a></li>
+            <li><a href="#" class="hover:text-daffodil">chapter marks</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <section class="col-start-5 col-span-5 content">
+        <h2 id="demos">demos</h2>
+        <p>For each demo, you'll see</p>
+        <ul>
+          <li>a working example</li>
+          <li>an article explaining how the code works</li>
+          <li>the code itself</li>
+        </ul>
+        <p>
+          <em
+            >NOTE: Within the <a
+              class="underline text-daffodil hover:no-underline"
+              href="https://github.com/ahaywood/react-hook-audio"
+              target="_blank"
+              rel="noreferrer">GitHub repository</a
+            >, you'll find the code for each of these demos within the "demos"
+            folder.</em
+          >
+        </p>
+      </section>
+
+      <!-- frequently asked questions -->
+      <aside></aside>
+
+      <section class="col-start-5 col-span-5 content">
+        <h2 id="faqs">faqs</h2>
+        <hr />
+        {
+          allFaqs.map((item) => (
+            <Faq question={item.data.question} client:only>
+              <div>{item.body}</div>
+            </Faq>
+          ))
+        }
+      </section>
+    </div>
+    <Footer />
+  </body>
 </html>
