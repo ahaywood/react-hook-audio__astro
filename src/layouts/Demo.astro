@@ -19,13 +19,19 @@ import BaseHead from "../components/BaseHead.astro";
       <div class="col-span-3 relative">
         <button class="w-full h-1 cursor-row-resize bg-gray-700 hover:bg-gray-600 absolute inset-0" id="verticalDragger" />
       </div>
-      <div class="border-r-[1px] border-r-gray-700 max-h-full overflow-y-scroll bg-[#24282e]" id="leftCol">
+      <!-- JAVASCRIPT -->
+      <div class="border-r-[1px] border-r-gray-700 max-h-full overflow-y-scroll bg-[#24282e] relative" id="leftCol">
         <div class="uppercase font-bold px-2 py-1 text-sm tracking-wide bg-yellow-400 text-black sticky top-0">JavaScript Code</div>
+        <!-- TODO: Set up Copy Button -->
+        <button class="absolute top-7 tracking-wider text-sm hover:text-gray-400 right-0 px-2 py-1 text-white font-bold">COPY</button>
         <slot name="javascript-code" />
       </div>
       <div><button class="cursor-col-resize w-1 h-full bg-gray-700 hover:bg-gray-600" id="horizontalDragger" /></div>
-      <div class="max-h-full overflow-y-scroll bg-[#24282e]" id="rightCol">
+      <!-- CSS -->
+      <div class="max-h-full overflow-y-scroll bg-[#24282e] relative" id="rightCol">
         <div class="uppercase font-bold px-2 py-1 text-sm tracking-wide bg-pink-600 text-white sticky top-0">CSS Code</div>
+        <!-- TODO: Set up Copy Button -->
+        <button class="absolute top-7 tracking-wider text-sm hover:text-gray-400 right-0 px-2 py-1 text-white font-bold">COPY</button>
         <slot name="css-code" />
       </div>
     </div>
