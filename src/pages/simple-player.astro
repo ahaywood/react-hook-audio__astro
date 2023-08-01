@@ -1,0 +1,20 @@
+---
+import Demo from "../layouts/Demo.astro";
+import { SimplePlayer } from "../components/audio/SimplePlayer"
+import {Content as JavaScriptCode} from "../content/demos/SimplePlayer/SimplePlayer-js.md"
+import {Content as CSSCode} from "../content/demos/SimplePlayer/SimplePlayer-css.md"
+
+console.log(CSSCode.Content);
+---
+
+<Demo>
+  <div slot="component">
+    <SimplePlayer track="/audio/TheClap.mp3" client:only />
+  </div>
+  <div slot="javascript-code">
+    <JavaScriptCode />
+  </div>
+  <div slot="css-code">
+    <CSSCode />
+  </div>
+</Demo>

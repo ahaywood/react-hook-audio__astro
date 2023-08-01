@@ -1,0 +1,78 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import BaseHead from "../components/BaseHead.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <div class="grid grid-cols-[calc(50vw-2px)_4px_calc(50vw-2px)] w-screen h-screen grid-rows-[calc(50vh-2px)_4px_calc(50vh-2px)]" id="page">
+      <div class="col-span-3 center border-b-[1px] border-b-gray-700" id="topCol">
+        <slot name="component" />
+      </div>
+      <div class="col-span-3 relative">
+        <button class="w-full h-1 cursor-row-resize bg-gray-700 hover:bg-gray-600 absolute inset-0" id="verticalDragger" />
+      </div>
+      <div class="border-r-[1px] border-r-gray-700 max-h-full overflow-y-scroll bg-[#24282e]" id="leftCol">
+        <div class="uppercase font-bold px-2 py-1 text-sm tracking-wide bg-yellow-400 text-black sticky top-0">JavaScript Code</div>
+        <slot name="javascript-code" />
+      </div>
+      <div><button class="cursor-col-resize w-1 h-full bg-gray-700 hover:bg-gray-600" id="horizontalDragger" /></div>
+      <div class="max-h-full overflow-y-scroll bg-[#24282e]" id="rightCol">
+        <div class="uppercase font-bold px-2 py-1 text-sm tracking-wide bg-pink-600 text-white sticky top-0">CSS Code</div>
+        <slot name="css-code" />
+      </div>
+    </div>
+    <script>
+      const verticalDragger = document.getElementById('verticalDragger')
+      const horizontalDragger = document.getElementById('horizontalDragger')
+      const page = document.getElementById('page')
+      const topCol = document.getElementById('topCol')
+      const leftCol = document.getElementById('leftCol')
+      const rightCol = document.getElementById('rightCol')
+
+      let isVerticalDragging = false;
+      let isHorizontalDragging = false;
+
+      function startVerticalDrag() {
+        isVerticalDragging = true;
+      }
+
+      function startHorizontalDrag() {
+        isHorizontalDragging = true;
+      }
+
+      function endDrag() {
+        isVerticalDragging = false;
+        isHorizontalDragging = false;
+      }
+
+      function onDrag(event) {
+        const dragBarSize = 4;
+
+        if (isHorizontalDragging) {
+          const leftColWidth = event.clientX;
+          const cols = `${leftColWidth}px ${dragBarSize}px 1fr`;
+          page.style.gridTemplateColumns = cols;
+        } else if (isVerticalDragging) {
+          const topColHeight = event.clientY;
+          const rows = `${topColHeight}px ${dragBarSize}px 1fr`;
+          page.style.gridTemplateRows = rows;
+        }
+
+        event.preventDefault();
+      }
+
+      verticalDragger.addEventListener('mousedown', startVerticalDrag);
+      horizontalDragger.addEventListener('mousedown', startHorizontalDrag);
+      page.addEventListener('mouseup', endDrag)
+      page.addEventListener('mousemove', onDrag)
+    </script>
+  </body>
+</html>
