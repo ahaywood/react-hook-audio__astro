@@ -101,19 +101,19 @@ const allGettingStarted = await getCollection("getting-started");
       <!-- documentation -->
       <aside>
         <div class="sticky top-5 font-dank text-white text-base pb-10">
-          &lt;/&gt; use Audio Player
           <ul
             class="font-dank text-white leading-7 list-none m-0 p-0 pl-2 text-base"
           >
             {
-              allDocs.map(async (doc) => {
+              allDocs.map(async (doc, index) => {
                 return (
                   <li>
                     <a
                       href={`#${slugify(doc.data.title)}`}
                       class="hover:text-daffodil"
                     >
-                      |__ {doc.data.title}
+                      {(index <= 0) ? '' : '|__ '}
+                      {doc.data.title}
                     </a>
                   </li>
                 );
@@ -125,13 +125,12 @@ const allGettingStarted = await getCollection("getting-started");
 
       <section class="col-start-5 col-span-5 content">
         <h2 id="documentation">documentation</h2>
-        <H3 heading="useAudioPlayer" />
-
         {
           allDocs.map(async (doc) => {
             const { Content } = await doc.render();
             return (
-              <div id={slugify(doc.data.title)}>
+              <div>
+                <H3 heading={doc.data.title} />
                 <Content />
               </div>
             );
@@ -169,8 +168,8 @@ const allGettingStarted = await getCollection("getting-started");
             <li>
               <a href="#" class="hover:text-daffodil">multiple players</a>
             </li>
-            <li><a href="#" class="hover:text-daffodil">handing off</a></li>
-            <li><a href="#" class="hover:text-daffodil">jump links</a></li>
+            <li><a href="#" class="hover:text-daffodil">persistent player</a></li>
+            <li><a href="#" class="hover:text-daffodil">deep links</a></li>
             <li><a href="#" class="hover:text-daffodil">chapter marks</a></li>
           </ul>
         </div>

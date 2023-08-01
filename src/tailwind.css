@@ -44,7 +44,7 @@
   }
 
   aside {
-    @apply col-start-2 col-span-2 border-r-[1px] border-balticSea pb-[150px]
+    @apply col-start-1 col-span-3 pl-10 border-r-[1px] border-balticSea pb-[150px]
   }
 
   section {
